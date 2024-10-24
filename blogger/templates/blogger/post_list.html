@@ -1,0 +1,117 @@
+{% load static tailwind_tags %}
+<head>
+    {% tailwind_css %}
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <div class="min-h-screen flex flex-col">
+        <!-- Navbar -->
+        <nav class="bg-base-100 border-b border-gray-200 dark:bg-gray-800">
+            <div class="max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center">
+                <span class="text-xl font-bold dark:text-white">Blogar Platform</span>
+                <div class="block md:hidden">
+                    <button id="menu-toggle" class="text-gray-700 dark:text-white focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6h.01M6 12h12M6 18h12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="hidden md:flex gap-4">
+                    <a href="{% url 'create' %}" class="btn btn-primary">Create Post</a>
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline btn-info">Dashboard</a>
+                    <a href="{% url 'logout' %}" class="btn btn-outline btn-error">Logout</a>
+                </div>
+                <div id="dropdown-menu" class="hidden md:hidden px-4 py-2 bg-base-100 dark:bg-gray-800">
+                    <a href="{% url 'create' %}" class="block text-gray-700 dark:text-white py-2">Create Post</a>
+                    <a href="{% url 'dashboard' %}" class="block text-gray-700 dark:text-white py-2">Dashboard</a>
+                    <a href="{% url 'logout' %}" class="block text-gray-700 dark:text-white py-2">Logout</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-5">
+            <div class="max-w-screen-lg mx-auto">
+                <h1 class="text-3xl font-bold mb-5 text-gray-700 dark:text-gray-300">Blogs</h1>
+
+                <!-- If there are no posts -->
+                {% if not posts %}
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <p class="text-gray-600 dark:text-gray-400">There are no posts available at the moment.</p>
+                </div>
+                {% else %}
+                <!-- Display all posts -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for post in posts %}
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">{{ post.title }}</h3>
+
+                        <!-- Display image only if available -->
+                        {% if post.img %}
+                        <img src="{{ post.img.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover rounded-lg mt-2">
+                        {% endif %}
+
+                        <!-- Display author and date -->
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                            By {{ post.author.username }} on {{ post.created_at|date:"F j, Y" }}
+                        </p>
+
+                        <p class="text-gray-600 dark:text-gray-100 mt-2">{{ post.excerpt }}</p>
+
+                        <div class="mt-4 flex justify-between items-center">
+                            <a href="{% url 'detail' post.slug %}" class="btn btn-outline">Read More 
+                            </a>
+                            <!-- Like button and like count -->
+                            <button class="like-button btn btn-outline btn-primary" data-post-id="{{ post.id }}">
+                                👍 Like
+                            </button>
+                            <span id="like-count-{{ post.id }}">{{ post.total_likes }}</span> Likes
+                        </div>
+                 
+                    
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Footer -->
+         {% include 'blogger/footer.html' %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>$(document).on('click', '.like-button', function(e) {
+        e.preventDefault();
+        var post_id = $(this).data('post-id');  // Get the post ID from data attribute
+        var likeBtn = $(this);
+    
+        $.ajax({
+            type: 'POST',
+            url: `/like/${post_id}/`,  // Dynamically insert post_id into the URL
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'  // Include CSRF token for security
+            },
+            success: function(response) {
+                // Update the like count dynamically
+                $('#like-count-' + post_id).text(response.total_likes);
+    
+                // Toggle the button's appearance based on like/unlike
+                if (response.liked) {
+                    likeBtn.text('👍 Liked');
+                } else {
+                    likeBtn.text('👍 Like');
+                }
+            }
+        });
+    });
+    
+    </script>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        menuToggle.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>

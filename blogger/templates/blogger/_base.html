@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static tailwind_tags %}
+<head>
+    {% tailwind_css %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title %} Blogger{% endblock %}</title>
+</head>
+    <body>
+        {%if user.is_authenticated%}
+        
+        <nav class="bg-base-100 border-b border-gray-200 dark:bg-gray-900">
+            <div class="max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center">
+                <span class="text-xl font-bold dark:text-white">{{ user.username }} Dashboard</span>
+                <!-- Dropdown Trigger for small screens -->
+                <div class="block md:hidden">
+                    <button id="menu-toggle" class="text-gray-700 dark:text-white focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6h.01M6 12h12M6 18h12" />
+                        </svg>
+                    </button>
+                </div>
+                <!-- Menu for larger screens -->
+                <div class="hidden md:flex gap-4">
+                    <a href="{% url 'create' %}" class="btn btn-primary">Create Post</a>
+                    <a href="{% url 'explore' %}" class="btn btn-outline">Explore Posts</a>
+                    <a href="{% url 'logout' %}" class="btn btn-outline btn-error">Logout</a>
+                </div>
+            </div>
+            <!-- Dropdown Menu for small screens -->
+            <div id="dropdown-menu" class="hidden md:hidden px-4 py-2 bg-base-100 dark:bg-gray-800">
+                <a href="{% url 'create' %}" class="block text-gray-700 dark:text-white py-2">Create Post</a>
+                <a href="{% url 'explore' %}" class="block text-gray-700 dark:text-white py-2">Explore Posts</a>
+                <a href="{% url 'logout' %}" class="block text-gray-700 dark:text-white py-2">Logout</a>
+            </div>
+        </nav>
+
+        {% else %}
+        <nav class="bg-base-100 border-b border-gray-200 dark:bg-gray-900">
+            <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4">
+                <span class="text-2xl font-semibold whitespace-nowrap dark:text-white">Blogger</span>
+            </div>
+        </nav>
+    </body>
+
+{% endif %}
+{% block content %}{% endblock %}  
+    
+</body>
+</html>

@@ -1,0 +1,108 @@
+{% load static tailwind_tags %}
+<head>
+    {% tailwind_css %}
+</head>
+<body class="bg-gray-50 dark:bg-gray-900">
+    <div class="min-h-screen flex flex-col">
+        <!-- Navbar -->
+        <nav class="bg-base-100 border-b border-gray-200 dark:bg-gray-800">
+            <div class="max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center">
+                <span class="text-xl font-bold dark:text-white">{{ user.username }} Dashboard</span>
+                <div class="block md:hidden">
+                    <button id="menu-toggle" class="text-gray-700 dark:text-white focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6h.01M6 12h12M6 18h12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="hidden md:flex gap-4">
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline btn-info">Dashboard</a>
+                    <a href="{% url 'explore' %}" class="btn btn-outline">Explore Posts</a>
+                    <a href="{% url 'logout' %}" class="btn btn-outline btn-error">Logout</a>
+                </div>
+                <div id="dropdown-menu" class="hidden md:hidden px-4 py-2 bg-base-100 dark:bg-gray-800">
+                    <a href="{% url 'dashboard' %}" class="block text-gray-700 dark:text-white py-2">Dashboard</a>
+                    <a href="{% url 'explore' %}" class="block text-gray-700 dark:text-white py-2">Explore Posts</a>
+                    <a href="{% url 'logout' %}" class="block text-gray-700 dark:text-white py-2">Logout</a>
+                </div>
+
+            </div>
+        </nav>
+
+        {% if form.errors %}
+        <div class="text-red-500">
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    <li>{{ field }}: {{ errors }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- Main Content -->
+        <div class="flex-1 p-5">
+            <div class="max-w-screen-md mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-5 text-gray-700 dark:text-gray-300">
+                    {% if view.object %}
+                        {{ view.object.title }}
+                    {% else %}
+                        Create a New Post
+                    {% endif %}
+                </h2>
+
+                <!-- Form for Creating/Updating Post -->
+                <form method="POST" enctype="multipart/form-data" class="space-y-4">
+                    {% csrf_token %}
+
+                    <!-- Title Field -->
+                    <div>
+                        <label for="id_title" class="block text-gray-700 dark:text-gray-300">Title</label>
+                        <input type="text" name="title" id="id_title" class="input input-bordered w-full" placeholder="Enter post title" value="{{ form.title.value|default_if_none:'' }}" required>
+                    </div>
+
+                    <!-- Content Field -->
+                    <div>
+                        <label for="id_content" class="block text-gray-700 dark:text-gray-300">Content</label>
+                        <textarea name="content" id="id_content" rows="5" class="textarea textarea-bordered w-full" placeholder="Write your post content..." required>{{ form.content.value|default_if_none:'' }}</textarea>
+                    </div>
+
+                    <!-- Category Field -->
+                    <div>
+                        <label for="id_category" class="block text-gray-700 dark:text-gray-300">Category</label>
+                        <select name="category" id="id_category" class="select select-bordered w-full">
+                            {% for category in categories %}
+                            <option value="{{ category.id }}" {% if category.id == form.category.value %}selected{% endif %}>{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Image Field -->
+                    <div>
+                        <label for="id_image" class="block text-gray-700 dark:text-gray-300">Image (Optional)</label>
+                        <input type="file" name="img" id="id_image" class="file-input file-input-bordered w-full">
+                        {% if view.object.img %}
+                        <img src="{{ view.object.img.url }}" alt="Current image" class="mt-4 w-48">
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-full">
+                        {% if view.object %}
+                            Update Post
+                        {% else %}
+                            Create Post
+                        {% endif %}
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</body>
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+
+    menuToggle.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('hidden');
+    });
+</script>
