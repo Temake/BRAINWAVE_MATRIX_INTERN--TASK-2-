@@ -90,11 +90,11 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 
-# Set a default value for the DATABASE_URL (used in Docker)
+
 DATABASE_URL = os.getenv('DATABASE_URL')
 
 if DATABASE_URL:
-    # Use PostgreSQL (Docker environment)
+    
     DATABASES = {
         'default': dj_database_url.config(default=DATABASE_URL)
     }
