@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure--ub7d1jd%1+-$i$2-&k7gt+c&*4st$=a!r!=&i-0&=0cbyw_nh
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'localhost',  # Allows access from localhost
+    'localhost',
+    '.onrender.com', 
     '127.0.0.1',  # Allows access from local IP address
     '.vercel.app',  # Replace with your actual domain if you have one
 ]
