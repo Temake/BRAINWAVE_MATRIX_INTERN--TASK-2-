@@ -7,3 +7,5 @@ urlpatterns = [
     path('', include('blogger.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
 ]
+# In your main urls.py
+handler404 = 'blogger.views.custom_404_view'

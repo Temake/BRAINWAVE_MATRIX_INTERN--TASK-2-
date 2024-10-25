@@ -1,0 +1,39 @@
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ignore environment variables and secret keys
+.env
+*.env
+
+# Ignore local database files (for SQLite)
+db.sqlite3
+
+# Ignore virtual environments
+venv/
+.venv/
+
+# Ignore unnecessary files for build
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Ignore media files (optional, depending on your setup)
+media/
+
+# Ignore static files if they are collected during build
+staticfiles/
+
+# Ignore Git repository files
+.git/
+.gitignore
+
+# Ignore node_modules (if using JavaScript dependencies)
+node_modules/
+
+# Ignore any local IDE or editor config files
+.idea/
+.vscode/

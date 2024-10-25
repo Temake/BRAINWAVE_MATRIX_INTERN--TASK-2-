@@ -54,7 +54,7 @@
                             <h4 class="text-gray-700 dark:text-gray-300">Comments:</h4>
                             <ul class="mt-2 space-y-2">
                                 {% for comment in post.comments.all %}
-                                <li class="bg-gray-50 dark:bg-gray-700 p-2 rounded">
+                                <li class="border border-gray-300 dark:border-gray-600 p-2 rounded">
                                     <p class="text-gray-600 dark:text-gray-100">{{ comment.content }}</p>
                                     <p class="text-sm text-gray-500 dark:text-gray-500">-{{ comment.author }} on {{ comment.created_at|date:"F j, Y, g:i a" }}</p>
                                 </li>

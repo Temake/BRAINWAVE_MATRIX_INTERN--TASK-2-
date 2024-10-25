@@ -158,3 +158,7 @@ def like_post(request, post_id):
         liked = True
 
     return JsonResponse({'liked': liked, 'total_likes': post.total_likes})
+
+def custom_404_view(request, exception):
+    return render(request, '404.html', status=404)
+
