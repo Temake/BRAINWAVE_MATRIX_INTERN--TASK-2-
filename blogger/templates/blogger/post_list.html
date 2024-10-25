@@ -20,11 +20,12 @@
                     <a href="{% url 'dashboard' %}" class="btn btn-outline btn-info">Dashboard</a>
                     <a href="{% url 'logout' %}" class="btn btn-outline btn-error">Logout</a>
                 </div>
-                <div id="dropdown-menu" class="hidden md:hidden px-4 py-2 bg-base-100 dark:bg-gray-800">
-                    <a href="{% url 'create' %}" class="block text-gray-700 dark:text-white py-2">Create Post</a>
-                    <a href="{% url 'dashboard' %}" class="block text-gray-700 dark:text-white py-2">Dashboard</a>
-                    <a href="{% url 'logout' %}" class="block text-gray-700 dark:text-white py-2">Logout</a>
-                </div>
+                
+            </div>
+            <div id="dropdown-menu" class="hidden  md:hidden px-4 py-2 bg-base-100 dark:bg-gray-800">
+                <a href="{% url 'create' %}" class="btn btn-secondary  block border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white py-2 mb-2">Create Post</a>
+                <a href="{% url 'dashboard' %}" class="btn btn-outline-none  block border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white py-2 mb-2">Dashboard</a>
+                <a href="{% url 'logout' %}" class=" btn btn-outline-none  block border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white py-2 mb-2">Logout</a>
             </div>
         </nav>
 
@@ -70,7 +71,7 @@
                             <h4 class="text-gray-700 dark:text-gray-300">Comments:</h4>
                             <ul class="mt-2 space-y-2">
                                 {% for comment in post.comments.all %}
-                                <li class="bg-gray-50 dark:bg-gray-700 p-2 rounded">
+                                <li class="border border-gray-300 dark:border-gray-600 p-2 rounded">
                                     <p class="text-gray-600 dark:text-gray-100">{{ comment.content }}</p>
                                     <p class="text-sm text-gray-500 dark:text-gray-500">-{{ comment.author }} on {{ comment.created_at|date:"F j, Y, g:i a" }}</p>
                                 </li>

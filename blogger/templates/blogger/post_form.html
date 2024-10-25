@@ -20,12 +20,13 @@
                     <a href="{% url 'explore' %}" class="btn btn-outline">Explore Posts</a>
                     <a href="{% url 'logout' %}" class="btn btn-outline btn-error">Logout</a>
                 </div>
-                <div id="dropdown-menu" class="hidden md:hidden px-4 py-2 bg-base-100 dark:bg-gray-800">
-                    <a href="{% url 'dashboard' %}" class="block text-gray-700 dark:text-white py-2">Dashboard</a>
-                    <a href="{% url 'explore' %}" class="block text-gray-700 dark:text-white py-2">Explore Posts</a>
-                    <a href="{% url 'logout' %}" class="block text-gray-700 dark:text-white py-2">Logout</a>
-                </div>
+               
 
+            </div>
+            <div id="dropdown-menu" class="hidden md:hidden px-4 py-2 bg-base-100 dark:bg-gray-800">
+                <a href="{% url 'dashboard' %}" class="btn btn-secondary  block border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white py-2 mb-2">Dashboard</a>
+                <a href="{% url 'explore' %}" class="btn btn-outline-none  block border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white py-2 mb-2">Explore Posts</a>
+                <a href="{% url 'logout' %}" class="btn btn-outline-none  block border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white py-2 mb-2">Logout</a>
             </div>
         </nav>
 
@@ -78,7 +79,7 @@
 
                     <!-- Image Field -->
                     <div>
-                        <label for="id_image" class="block text-gray-700 dark:text-gray-300">Image (Optional)</label>
+                        <label for="id_image" class="block text-gray-700 dark:text-gray-300">Image </label>
                         <input type="file" name="img" id="id_image" class="file-input file-input-bordered w-full">
                         {% if view.object.img %}
                         <img src="{{ view.object.img.url }}" alt="Current image" class="mt-4 w-48">
