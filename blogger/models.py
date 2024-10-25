@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
-import helpers
-helpers.cloudinary_init()
 
 class User(AbstractUser):
     email= models.EmailField(unique=True,blank=False, null=False)
