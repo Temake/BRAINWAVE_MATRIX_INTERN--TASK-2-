@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     
 
 ]
+
+NPM_BIN_PATH = "/c/Program Files/nodejs/npm"
+
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
