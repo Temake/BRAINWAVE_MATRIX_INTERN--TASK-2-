@@ -28,8 +28,8 @@
         </nav>
 
         <!-- Main Content -->
-        <div class="flex-1 p-5">
-            <div class="max-w-screen-lg mx-auto">
+        <div class="min-h-screen flex flex-col">
+            <div class="flex-1 p-5">
                 <h1 class="text-3xl font-bold mb-5 text-gray-700 dark:text-gray-300">Blogs</h1>
 
                 <!-- If there are no posts -->
@@ -39,7 +39,7 @@
                 </div>
                 {% else %}
                 <!-- Display all posts -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {% for post in posts %}
                     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-white">{{ post.title }}</h3>
