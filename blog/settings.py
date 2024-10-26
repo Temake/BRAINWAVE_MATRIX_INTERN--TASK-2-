@@ -55,8 +55,6 @@ INTERNAL_IPS = [
 ]
 TAILWIND_APP_NAME = 'theme'
 
-NPM_BIN_PATH = "/c/Program Files/nodejs/npm"
-
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
