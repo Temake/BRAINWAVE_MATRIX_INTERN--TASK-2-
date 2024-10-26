@@ -1,9 +1,8 @@
-
-
-{% load static tailwind_tags %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
 <head>
 
-   {% tailwind_css %}
+   
 
     <title>{% block title %} Blogar {% endblock %}</title>
 </head>

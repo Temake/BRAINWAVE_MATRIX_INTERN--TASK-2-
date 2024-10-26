@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--ub7d1jd%1+-$i$2-&k7gt+c&*4st$=a!r!=&i-0&=0cbyw_nh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'blogger',
     'cloudinary',
     'cloudinary_storage',
-    'tailwind',
-    'theme',
+    
     'django_browser_reload'
     
 
@@ -56,8 +55,8 @@ INTERNAL_IPS = [
 TAILWIND_APP_NAME = 'theme'
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -94,8 +93,9 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 
 DATABASE_URL = os.getenv('DATABASE_URL')
+ENVIRONMENT = os.getenv('ENVIRONMENT')
 
-if DATABASE_URL:
+if DATABASE_URL or ENVIRONMENT == 'production':
     
     DATABASES = {
         'default': dj_database_url.config(default=DATABASE_URL)
@@ -164,7 +164,7 @@ cloudinary.config(
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'theme', 'static'),  
+    os.path.join(BASE_DIR, 'static'),
 ]
 MEDIA_URL = '/media/' 
 
