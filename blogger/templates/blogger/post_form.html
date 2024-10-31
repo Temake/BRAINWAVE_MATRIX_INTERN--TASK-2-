@@ -2,11 +2,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
 <body class="bg-gray-50 dark:bg-gray-900">
-    <div class="min-h-screen flex flex-col">
+    <div class=" flex flex-col">
         <!-- Navbar -->
-        <nav class="bg-base-100 border-b border-gray-200 dark:bg-gray-800">
+  <nav class="bg-base-100 border-b border-gray-200 dark:bg-gray-900">
             <div class="max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center">
-
+                <span class="text-xl font-bold dark:text-white">Blogar</span>
+                <!-- Dropdown Trigger for small screens -->
                 <div class="block md:hidden">
                     <button id="menu-toggle" class="text-gray-700 dark:text-white focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -14,21 +15,21 @@
                         </svg>
                     </button>
                 </div>
+                <!-- Menu for larger screens -->
                 <div class="hidden md:flex gap-4">
+                    
                     <a href="{% url 'dashboard' %}" class="btn btn-outline btn-info">Dashboard</a>
-                    <a href="{% url 'explore' %}" class="btn btn-outline">Explore Posts</a>
+                    <a href="{% url 'explore' %}" class="btn btn-outline">Explore</a>
                     <a href="{% url 'logout' %}" class="btn btn-outline btn-error">Logout</a>
                 </div>
-               
-
             </div>
+            <!-- Dropdown Menu for small screens -->
             <div id="dropdown-menu" class="hidden md:hidden px-4 py-2 bg-base-100 dark:bg-gray-800">
+                <a href="{% url 'create' %}" class="btn btn-outline-none  block border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white py-2 mb-2">Create Post</a>
                 <a href="{% url 'dashboard' %}" class="btn btn-outline-none  block border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white py-2 mb-2">Dashboard</a>
-                <a href="{% url 'explore' %}" class="btn btn-outline-none  block border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white py-2 mb-2">Explore Posts</a>
                 <a href="{% url 'logout' %}" class="btn btn-outline-none  block border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-white py-2 mb-2">Logout</a>
             </div>
         </nav>
-
         {% if form.errors %}
         <div class="text-red-500">
             <ul>
@@ -40,7 +41,7 @@
         {% endif %}
 
         <!-- Main Content -->
-        <div class="min-h-screen flex flex-col">
+        <div class="flex flex-col mt-6 flex-1">
             <div class="flex-auto mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
                 <h2 class="text-2xl font-semibold mb-5 text-gray-700 dark:text-gray-300">
                     {% if view.object %}
