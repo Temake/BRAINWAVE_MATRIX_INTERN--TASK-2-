@@ -30,7 +30,7 @@ class PostCreateView(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.save()
-        return super().form_valid(form)
+        return super(self,PostCreateView).form_valid(form)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()  
@@ -124,6 +124,7 @@ def LoginView(request):
 
     return render(request, 'login.html')
 def LogoutView(request):
+    
     return render(request,'login.html')
 
 @login_required

@@ -52,7 +52,6 @@ NPM_BIN_PATH = "/c/Program Files/nodejs/npm"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
-TAILWIND_APP_NAME = 'theme'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -92,21 +91,12 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 
 
-DATABASE_URL = os.getenv('DATABASE_URL')
-ENVIRONMENT = os.getenv('ENVIRONMENT')
-
-if DATABASE_URL or ENVIRONMENT == 'production':
-    
-    DATABASES = {
-        'default': dj_database_url.config(default=DATABASE_URL)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 
 # Password validation
