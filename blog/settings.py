@@ -26,6 +26,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
+    '0.0.0.0',
     '.onrender.com', 
     '127.0.0.1',  # Allows access from local IP address
     '.vercel.app',  # Replace with your actual domain if you have one
